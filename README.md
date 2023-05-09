@@ -2,7 +2,22 @@
 
 All the solution is written by python3.
 
-[toc]
+- [leetcode\_sol](#leetcode_sol)
+  - [Array](#array)
+  - [String](#string)
+    - [2437. Number of Valid Clock Times](#2437-number-of-valid-clock-times)
+  - [Linked List](#linked-list)
+  - [Stack](#stack)
+  - [Queue](#queue)
+  - [Tree](#tree)
+  - [Hash Table](#hash-table)
+  - [Two Pointers](#two-pointers)
+  - [Dynamic Programming](#dynamic-programming)
+  - [Backtracking](#backtracking)
+  - [Greedy](#greedy)
+  - [Breadth-first Search](#breadth-first-search)
+  - [Depth-first Search](#depth-first-search)
+
 ## Array
 ## String
 ### 2437. Number of Valid Clock Times
