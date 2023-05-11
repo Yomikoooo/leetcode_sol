@@ -8,6 +8,8 @@ All the solution is written by python3.
     - [1016. (medium) Binary String With Substrings Representing 1 To N](#1016-medium-binary-string-with-substrings-representing-1-to-n)
     - [2437. (easy) Number of Valid Clock Times](#2437-easy-number-of-valid-clock-times)
   - [Linked List](#linked-list)
+    - [19.(Medium) Remove Nth Node From End of List](#19medium-remove-nth-node-from-end-of-list)
+    - [24.(Medium) Swap Nodes in Pairs](#24medium-swap-nodes-in-pairs)
   - [Stack](#stack)
   - [Queue](#queue)
   - [Tree](#tree)
@@ -63,6 +65,54 @@ class Solution:
         return hour * minute
 ```
 ## Linked List
+setting up a linked list class
+```python
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+```
+### 19.(Medium) Remove Nth Node From End of List
+Given the `head` of a linked list, remove the `nth` node from the end of the list and return its head.
+```python
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        res = ListNode(next=head)
+        fast, slow = res, res
+
+        while n>=0: # create a window and length equals n
+            fast = fast.next
+            n -= 1
+        while (fast!=None): # let the fast pointer go to the end
+            slow = slow.next
+            fast = fast.next
+        
+        slow.next = slow.next.next # remove
+        return res.next
+
+```
+
+### 24.(Medium) Swap Nodes in Pairs
+Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+```python
+class Solution:
+    ### example: 1->2->3->4
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        res = ListNode(next=head) #dummy node
+        prev = res # pointer
+        while prev.next and prev.next.next: #must have next 2 nodes
+            cur=prev.next #first node
+            post= prev.next.next #second node
+
+            #swap cur=1, post=2 to cur=2, post=1
+            cur.next=post.next # 1st node's next 3rd node
+            post.next=cur # 2nd node's next 1st node
+            prev.next=post # dummy node's next 2nd node(1st node after swap)
+
+            prev=prev.next.next # current pointer move to 3rd node
+        return res.next #return head
+```
 ## Stack
 ## Queue
 ## Tree
