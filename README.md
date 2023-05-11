@@ -5,7 +5,8 @@ All the solution is written by python3.
 - [leetcode\_sol](#leetcode_sol)
   - [Array](#array)
   - [String](#string)
-    - [2437. Number of Valid Clock Times](#2437-number-of-valid-clock-times)
+    - [1016. (medium) Binary String With Substrings Representing 1 To N](#1016-medium-binary-string-with-substrings-representing-1-to-n)
+    - [2437. (easy) Number of Valid Clock Times](#2437-easy-number-of-valid-clock-times)
   - [Linked List](#linked-list)
   - [Stack](#stack)
   - [Queue](#queue)
@@ -20,13 +21,28 @@ All the solution is written by python3.
 
 ## Array
 ## String
-### 2437. Number of Valid Clock Times
+
+### 1016. (medium) Binary String With Substrings Representing 1 To N
+Given a binary string `s` and a positive integer `n`, return true if the binary representation of all the integers in the range `[1, n]` are substrings of `s`, or false otherwise.
+
+A substring is a contiguous sequence of characters within a string.
+
+**sol**: brute force.
+```python
+class Solution:
+    def queryString(self, s: str, n: int) -> bool:
+        return all(bin(i)[2:] in s for i in range(1, n + 1))
+```
+**notes**: `bin(i)[2:]` return the binary representation of `i` without prefix `0b`. `all()` return `True` if all elements in the iterable are true, otherwise return `False`.</br>
+
+
+### 2437. (easy) Number of Valid Clock Times
 You are given a string of length `5` called time, representing the current time on a digital clock in the format `"hh:mm"`. The earliest possible time is `"00:00"` and the latest possible time is `"23:59"`.
 In the string `time`, the digits represented by the `?` symbol are **unknown**, and must be **replaced** with a digit from `0` to `9`.
 
 Return an integer `answer`, the number of valid clock times that can be created by replacing every `?` with a digit from `0` to `9`.
 
-sol: find all the situation that the time is valid.
+**sol**: brute force.
 
 ```python
 class Solution:
