@@ -53,6 +53,11 @@ class Solution:
         
         n = len(nums)
         j=0
+       '''
+       for each element, if not equal to the previous one,
+       then slow pointer move forward and change the value,
+       to make sure the first j+1 elements are unique
+       '''
         for i in range(n):
             if nums[i]!= nums[j]:
                 j+=1
