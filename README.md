@@ -7,6 +7,7 @@ All the solution is written by python3.
     - [26. (easy) Remove Duplicates from Sorted Array](#26-easy-remove-duplicates-from-sorted-array)
     - [283. (easy) Move Zeroes](#283-easy-move-zeroes)
     - [977. (easy) Squares of a Sorted Array](#977-easy-squares-of-a-sorted-array)
+    - [1985. (medium) Find the Kth Largest Integer in the Array](#1985-medium-find-the-kth-largest-integer-in-the-array)
     - [209. (medium) Minimum Size Subarray Sum](#209-medium-minimum-size-subarray-sum)
     - [904. (medium) Fruit Into Baskets](#904-medium-fruit-into-baskets)
     - [54. (medium) Spiral Matrix](#54-medium-spiral-matrix)
@@ -114,6 +115,15 @@ class Solution:
                 i+=1
         return ans[::-1]
 ```
+### 1985. (medium) Find the Kth Largest Integer in the Array
+You are given an array of strings `nums` and an integer `k`. Each string in `nums` represents an integer without leading zeros.
+Return the string that represents the `kth` largest integer in nums.
+```python
+class Solution:
+    def kthLargestNumber(self, nums: List[str], k: int) -> str:
+        return sorted(nums, key=int)[-k]
+```
+
 ### 209. (medium) Minimum Size Subarray Sum
 Given an array of positive integers `nums` and a positive integer `target`, return the minimal length of a **contiguous subarray** `[numsl, numsl+1, ..., numsr-1, numsr]` of which the sum is greater than or equal to `target`. If there is no such subarray, return `0` instead.
 ```
