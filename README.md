@@ -63,6 +63,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
     - [1105. (medium) Filling Bookcase Shelves](#1105-medium-filling-bookcase-shelves)
   - [Backtracking](#backtracking)
   - [Greedy](#greedy)
+    - [1054. (medium) Distant Barcodes](#1054-medium-distant-barcodes)
   - [Disjoint Set](#disjoint-set)
     - [1020. (medium) Number of Enclaves](#1020-medium-number-of-enclaves)
   - [Segment Tree](#segment-tree)
@@ -1419,6 +1420,32 @@ class Solution:
 
 ## Backtracking
 ## Greedy
+
+### 1054. (medium) Distant Barcodes
+In a warehouse, there is a row of barcodes, where the `ith` barcode is `barcodes[i]`.
+Rearrange the barcodes so that no two adjacent barcodes are equal. You may return any answer, and it is guaranteed an answer exists.
+```
+Input: barcodes = [1,1,1,2,2,2]
+Output: [2,1,2,1,2,1]
+
+Input: barcodes = [1,1,1,1,2,2,3,3]
+Output: [1,3,1,3,1,2,1,2]
+```
+```python
+#Greedy
+class Solution:
+    def rearrangeBarcodes(self, barcodes: List[int]) -> List[int]:
+        count = collections.Counter(barcodes) #count the frequency of each barcode
+        res = [0] * len(barcodes)
+        i = 0
+        for k, v in count.most_common(): #sort the barcodes by frequency
+            for _ in range(v): #put the most frequent barcode first, then the second most frequent barcode, and so on
+                res[i] = k
+                i += 2
+                if i >= len(barcodes):
+                    i = 1
+        return res
+```
 
 ## Disjoint Set
 ### 1020. (medium) Number of Enclaves
