@@ -54,6 +54,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
     - [383. (easy) Ransom Note](#383-easy-ransom-note)
     - [2441. (easy) Largest Positive Integer That Exists With Its Negative](#2441-easy-largest-positive-integer-that-exists-with-its-negative)
     - [49. (medium) Group Anagrams](#49-medium-group-anagrams)
+    - [1072. (medium) Flip Columns For Maximum Number of Equal Rows](#1072-medium-flip-columns-for-maximum-number-of-equal-rows)
   - [Dynamic Programming](#dynamic-programming)
     - [413. (easy) Arithmetic Slices](#413-easy-arithmetic-slices)
     - [926. (medium) Flip String to Monotone Increasing](#926-medium-flip-string-to-monotone-increasing)
@@ -1261,9 +1262,35 @@ class Solution:
             counts = [0] * 26
             for ch in st:
                 counts[ord(ch) - ord("a")] += 1
-            # 需要将 list 转换成 tuple 才能进行哈希
+            # list to tuple for hashability
             mp[tuple(counts)].append(st)        
         return list(mp.values())
+```
+
+### 1072. (medium) Flip Columns For Maximum Number of Equal Rows
+Given a `matrix` consisting of 0s and 1s, we may choose any number of columns in the matrix and flip every cell in that column.  Flipping a cell changes the value of that cell from 0 to 1 or from 1 to 0.
+Return the maximum number of rows that have all values equal after some number of flips.
+```
+Input: [[0,1],[1,1]]
+Output: 1
+
+Input: [[0,1],[1,0]]
+Output: 2
+
+Input: [[0,0,0],[0,0,1],[1,1,0]]
+Output: 2
+```
+```python
+#Hashmap
+class Solution:
+    def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
+        cnt = Counter() # use tuple as key
+        for row in matrix:
+            if row[0]:  # if the first element is 1, flip the row
+                for j in range(len(row)):
+                    row[j] ^= 1 # XOR operation
+            cnt[tuple(row)] += 1 
+        return max(cnt.values())
 ```
 
 ## Dynamic Programming
