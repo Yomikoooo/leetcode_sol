@@ -61,6 +61,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
     - [1024. (medium) Video Stitching](#1024-medium-video-stitching)
     - [1027. (medium) Longest Arithmetic Subsequence](#1027-medium-longest-arithmetic-subsequence)
     - [1043. (medium) Partition Array for Maximum Sum](#1043-medium-partition-array-for-maximum-sum)
+    - [1079. (medium) Letter Tile Possibilities](#1079-medium-letter-tile-possibilities)
     - [1105. (medium) Filling Bookcase Shelves](#1105-medium-filling-bookcase-shelves)
     - [1218. (medium) Longest Arithmetic Subsequence of Given Difference](#1218-medium-longest-arithmetic-subsequence-of-given-difference)
   - [Backtracking](#backtracking)
@@ -1430,6 +1431,29 @@ class Solution:
                 curMax = max(curMax, arr[i - j])
                 dp[i] = max(dp[i], dp[i - j] + curMax * j)
         return dp[-1]
+```
+### 1079. (medium) Letter Tile Possibilities
+You have `n`  `tiles`, where each tile has one letter `tiles[i]` printed on it.
+Return *the number of possible non-empty sequences of letters* you can make using the letters printed on those `tiles`.
+```
+Input: tiles = "AAB"
+Output: 8
+
+Input: tiles = "AAABBC"
+Output: 188
+```
+```python
+#DFS
+class Solution:
+    def numTilePossibilities(self, tiles: str) -> int:
+        f = [1] + [0] * len(tiles)
+        n = 0
+        for cnt in Counter(tiles).values():
+            n += cnt
+            for j in range(n, 0, -1):
+                for k in range(1, min(j, cnt) + 1):
+                    f[j] += f[j - k] * comb(j, k) 
+        return sum(f[1:])
 ```
 
 ### 1105. (medium) Filling Bookcase Shelves
