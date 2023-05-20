@@ -67,6 +67,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
   - [Backtracking](#backtracking)
   - [Greedy](#greedy)
     - [1054. (medium) Distant Barcodes](#1054-medium-distant-barcodes)
+    - [1909. (medium) Remove One Element to Make the Array Strictly Increasing](#1909-medium-remove-one-element-to-make-the-array-strictly-increasing)
   - [Simulation](#simulation)
     - [1073. (medium) Adding Two Negabinary Numbers](#1073-medium-adding-two-negabinary-numbers)
   - [Disjoint Set](#disjoint-set)
@@ -1523,6 +1524,37 @@ class Solution:
                 if i >= len(barcodes):
                     i = 1
         return res
+```
+### 1909. (medium) Remove One Element to Make the Array Strictly Increasing
+Given a **0-indexed** integer array `nums`, return `true` *if it can be made strictly increasing after removing **exactly one** element, or* `false` *otherwise. If the array is already strictly increasing, return* `true`.
+The array `nums` is **strictly increasing** if `nums[i - 1] < nums[i]` for each index `(1 <= i < nums.length).`
+```
+Input: nums = [1,2,10,5,7]
+Output: true
+
+Input: nums = [2,3,1,2]
+Output: false
+```
+```python
+#Greedy
+class Solution:
+    def canBeIncreasing(self, nums: List[int]) -> bool:
+        n = len(nums)
+        def check(idx: int) -> bool:
+            for i in range(1, n - 1):
+                prev, curr = i - 1, i
+                if prev >= idx:
+                    prev += 1
+                if curr >= idx:
+                    curr += 1
+                if nums[curr] <= nums[prev]:
+                    return False
+            return True
+        
+        for i in range(1, n):
+            if nums[i] <= nums[i-1]:
+                return check(i) or check(i - 1)
+        return True
 ```
 ## Simulation
 ### 1073. (medium) Adding Two Negabinary Numbers
