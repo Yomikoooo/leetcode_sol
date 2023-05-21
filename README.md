@@ -45,6 +45,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
     - [933. (easy) Number of Recent Calls](#933-easy-number-of-recent-calls)
   - [Tree](#tree)
     - [94. (easy) Binary Tree Inorder Traversal](#94-easy-binary-tree-inorder-traversal)
+    - [530. (easy) Minimum Absolute Difference in BST](#530-easy-minimum-absolute-difference-in-bst)
     - [965. (easy) Univalued Binary Tree](#965-easy-univalued-binary-tree)
     - [107. (medium) Binary Tree Level Order Traversal II](#107-medium-binary-tree-level-order-traversal-ii)
     - [1026. (medium) Maximum Difference Between Node and Ancestor](#1026-medium-maximum-difference-between-node-and-ancestor)
@@ -1042,6 +1043,28 @@ class Solution:
             res.append(root.val)
             root=root.right
         return res
+```
+### 530. (easy) Minimum Absolute Difference in BST
+Given the `root` of a Binary Search Tree (BST), return *the minimum absolute difference between the values of any two different nodes in the tree*.
+```
+Input: root = [4,2,6,1,3]
+Output: 1
+
+Input: root = [1,0,48,null,null,12,49]
+Output: 1
+```
+```python
+#Recursion
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        res=[]
+        def dfs(root):
+            if not root: return
+            dfs(root.left)
+            res.append(root.val)
+            dfs(root.right)
+        dfs(root)
+        return min([res[i+1]-res[i] for i in range(len(res)-1)])
 ```
 
 
