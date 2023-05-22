@@ -49,8 +49,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
     - [965. (easy) Univalued Binary Tree](#965-easy-univalued-binary-tree)
     - [107. (medium) Binary Tree Level Order Traversal II](#107-medium-binary-tree-level-order-traversal-ii)
     - [1026. (medium) Maximum Difference Between Node and Ancestor](#1026-medium-maximum-difference-between-node-and-ancestor)
-  - [Hashmap](#hashmap)
-    - [1. (easy) Two Sum](#1-easy-two-sum)
+    - [1080. (medium) Insufficient Nodes in Root to Leaf Paths](#1080-medium-insufficient-nodes-in-root-to-leaf-paths)
     - [242. (easy) Valid Anagram](#242-easy-valid-anagram)
     - [383. (easy) Ransom Note](#383-easy-ransom-note)
     - [2441. (easy) Largest Positive Integer That Exists With Its Negative](#2441-easy-largest-positive-integer-that-exists-with-its-negative)
@@ -1128,6 +1127,26 @@ class Solution:
             return max(left, right)
         return dfs(root, root.val, root.val)
 ```
+### 1080. (medium) Insufficient Nodes in Root to Leaf Paths
+Given the `root` of a binary tree, consider all **root to leaf paths**: paths from the root to any leaf.  (A leaf is a node with no children.)
+A **node** is **insufficient** if **every** such root to leaf path intersecting this node has sum strictly less than `limit`.
+Delete all insufficient nodes simultaneously, and return the root of the resulting binary tree.
+```
+Input: root = [1,2,3,4,-99,-99,7,8,9,-99,-99,12,13,-99,14], limit = 1
+Output: [1,2,3,4,null,null,7,8,9,null,14]
+```
+```python
+#Recursion
+class Solution:
+    def sufficientSubset(self, root: Optional[TreeNode], limit: int) -> Optional[TreeNode]:
+        limit -= root.val
+        if root.left is root.right:  # root is leaf
+            # if leaf's value is smaller than limit, delete it
+            return None if limit > 0 else root
+        if root.left: root.left = self.sufficientSubset(root.left, limit)
+        if root.right: root.right = self.sufficientSubset(root.right, limit)
+        # if root has no children, return None
+        return root if root.left or root.right else None
 
 ## Hashmap
 
