@@ -67,6 +67,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
   - [Backtracking](#backtracking)
   - [Greedy](#greedy)
     - [1054. (medium) Distant Barcodes](#1054-medium-distant-barcodes)
+    - [1090. (medium) Largest Values From Labels](#1090-medium-largest-values-from-labels)
     - [1909. (medium) Remove One Element to Make the Array Strictly Increasing](#1909-medium-remove-one-element-to-make-the-array-strictly-increasing)
   - [Simulation](#simulation)
     - [1073. (medium) Adding Two Negabinary Numbers](#1073-medium-adding-two-negabinary-numbers)
@@ -1565,6 +1566,34 @@ class Solution:
                 i += 2
                 if i >= len(barcodes):
                     i = 1
+        return res
+```
+### 1090. (medium) Largest Values From Labels
+We have a set of items: the `i`th item has value `values[i]` and label `labels[i]`.
+Then, we choose a subset `S` of these items, such that:
+- `|S| <= num_wanted`
+- For every label `L`, the number of items in `S` with label `L` is `<= use_limit`.
+- Return the largest possible sum of the subset `S`.
+```
+Input: values = [5,4,3,2,1], labels = [1,1,2,2,3], num_wanted = 3, use_limit = 1
+Output: 9
+
+Input: values = [5,4,3,2,1], labels = [1,3,3,3,2], num_wanted = 3, use_limit = 2
+Output: 12
+```
+```python
+#Greedy
+class Solution:
+    def largestValsFromLabels(self, values: List[int], labels: List[int], num_wanted: int, use_limit: int) -> int:
+        items = sorted(zip(values, labels), reverse=True) #sort the items by value
+        count = collections.Counter() #count the number of items with each label
+        res = 0
+        for value, label in items:
+            if num_wanted == 0: break
+            if count[label] < use_limit: #if we can still use more items with this label
+                res += value
+                count[label] += 1
+                num_wanted -= 1
         return res
 ```
 ### 1909. (medium) Remove One Element to Make the Array Strictly Increasing
