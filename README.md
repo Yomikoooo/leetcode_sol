@@ -25,6 +25,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
   - [String](#string)
     - [13. (easy) Roman to Integer](#13-easy-roman-to-integer)
     - [2409. (easy) Count Days Spent Together](#2409-easy-count-days-spent-together)
+    - [2451. (easy) Count Odd String Difference](#2451-easy-count-odd-string-difference)
     - [531. (medium) Lonely Pixel I](#531-medium-lonely-pixel-i)
     - [1003. (medium) Check If Word Is Valid After Substitutions](#1003-medium-check-if-word-is-valid-after-substitutions)
     - [1016. (medium) Binary String With Substrings Representing 1 To N](#1016-medium-binary-string-with-substrings-representing-1-to-n)
@@ -555,6 +556,38 @@ class Solution:
         x = sum(days[:int(a[:2]) - 1]) + int(a[3:])
         y = sum(days[:int(b[:2]) - 1]) + int(b[3:])
         return max(y - x + 1, 0)
+```
+
+### 2451. (easy) Count Odd String Difference
+You are given an array of equal-length strings words. Assume that the length of each string is n.
+
+Each string `words[i]` can be converted into a difference integer array `difference[i]` of length n - 1 where `difference[i][j] = words[i][j+1] - words[i][j]` where `0 <= j <= n - 2`. Note that the difference between two letters is the difference between their positions in the alphabet i.e. the position of `'a'` is `0`, `'b'` is `1`, and `'z'` is `25`.
+
+For example, for the string `"acb"`, the difference integer array is `[2 - 0, 1 - 2] = [2, -1]`.
+All the strings in words have the same difference integer array, except one. You should find that string.
+
+Return the string in `words` that has different difference integer array.
+```
+Input: words = ["adc","wzy","abc"]
+Output: "abc"
+Explanation: 
+- The difference integer array of "adc" is [3 - 0, 2 - 3] = [3, -1].
+- The difference integer array of "wzy" is [25 - 22, 24 - 25]= [3, -1].
+- The difference integer array of "abc" is [1 - 0, 2 - 1] = [1, 1]. 
+The odd array out is [1, 1], so we return the corresponding string, "abc".
+
+Input: words = ["aaa","bob","ccc","ddd"]
+Output: "bob"
+Explanation: All the integer arrays are [0, 0] except for "bob", which corresponds to [13, -13].
+```
+```python
+class Solution:
+    def oddString(self, words: List[str]) -> str:
+        d = defaultdict(list)
+        for s in words:
+            t = tuple(ord(b) - ord(a) for a, b in pairwise(s))
+            d[t].append(s)
+        return next(ss[0] for ss in d.values() if len(ss) == 1)
 ```
 ### 531. (medium) Lonely Pixel I
 Given an `m x n` picture `consisting` of black `'B'` and white `'W'` pixels, return the number of **black** lonely pixels.
