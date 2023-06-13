@@ -14,6 +14,7 @@ if **dynamic programming** with many images, attach the **link** and explain the
     - [977. (easy) Squares of a Sorted Array](#977-easy-squares-of-a-sorted-array)
     - [1380. (easy) Lucky Numbers in a Matrix](#1380-easy-lucky-numbers-in-a-matrix)
     - [1886. (easy) Determine Whether Matrix Can Be Obtained By Rotation](#1886-easy-determine-whether-matrix-can-be-obtained-by-rotation)
+    - [2460. (easy)Apply Operations to an Array](#2460-easyapply-operations-to-an-array)
     - [11. (medium) Container With Most Water](#11-medium-container-with-most-water)
     - [1985. (medium) Find the Kth Largest Integer in the Array](#1985-medium-find-the-kth-largest-integer-in-the-array)
     - [209. (medium) Minimum Size Subarray Sum](#209-medium-minimum-size-subarray-sum)
@@ -40,6 +41,8 @@ if **dynamic programming** with many images, attach the **link** and explain the
     - [24.(medium) Swap Nodes in Pairs](#24medium-swap-nodes-in-pairs)
     - [142. (medium) Linked List Cycle II](#142-medium-linked-list-cycle-ii)
     - [160. (easy?) Intersection of Two Linked Lists](#160-easy-intersection-of-two-linked-lists)
+  - [Hash Table](#hash-table)
+    - [2475. (easy) Number of Unequal Triplets in Array](#2475-easy-number-of-unequal-triplets-in-array)
   - [Stack](#stack)
     - [844. (easy) Backspace String Compare](#844-easy-backspace-string-compare)
   - [Queue](#queue)
@@ -51,6 +54,8 @@ if **dynamic programming** with many images, attach the **link** and explain the
     - [107. (medium) Binary Tree Level Order Traversal II](#107-medium-binary-tree-level-order-traversal-ii)
     - [1026. (medium) Maximum Difference Between Node and Ancestor](#1026-medium-maximum-difference-between-node-and-ancestor)
     - [1080. (medium) Insufficient Nodes in Root to Leaf Paths](#1080-medium-insufficient-nodes-in-root-to-leaf-paths)
+    - [236. (medium) Lowest Common Ancestor of a Binary Tree](#236-medium-lowest-common-ancestor-of-a-binary-tree)
+    - [1. (easy) Two Sum](#1-easy-two-sum)
     - [242. (easy) Valid Anagram](#242-easy-valid-anagram)
     - [383. (easy) Ransom Note](#383-easy-ransom-note)
     - [2441. (easy) Largest Positive Integer That Exists With Its Negative](#2441-easy-largest-positive-integer-that-exists-with-its-negative)
@@ -265,6 +270,8 @@ class Solution:
                 return True
         return False
 ```
+### 2460. (easy)Apply Operations to an Array
+
 ### 11. (medium) Container With Most Water
 Given `n` non-negative integers `a1, a2, ..., an` , where each represents a point at coordinate `(i, ai)`. `n` vertical lines are drawn such that the two endpoints of the line `i` is at `(i, ai)` and `(i, 0)`. Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.
 ```
@@ -983,9 +990,37 @@ class Solution:
             B = B.next if B else headA
         return A
 ```
+## Hash Table
+### 2475. (easy) Number of Unequal Triplets in Array
+You are given a 0-indexed array of positive integers nums. Find the number of triplets (i, j, k) that meet the following conditions:
 
+`0 <= i < j < k < nums.length`
+`nums[i]`, `nums[j]`, and `nums[k]` are pairwise distinct.
+In other words, `nums[i] != nums[j]`, `nums[i] != nums[k]`, and `nums[j] != nums[k]`.
+Return the number of *triplets* that meet the conditions.
 
-
+```
+Input: nums = [4,4,2,4,3]
+Output: 3
+Explanation: The following triplets meet the conditions:
+- (0, 2, 4) because 4 != 2 != 3
+- (1, 2, 4) because 4 != 2 != 3
+- (2, 3, 4) because 2 != 4 != 3
+Since there are 3 triplets, we return 3.
+Note that (2, 0, 4) is not a valid triplet because 2 > 0.
+```
+```python
+class Solution:
+    def unequalTriplets(self, nums: List[int]) -> int:
+        cnt = Counter(nums)
+        n = len(nums)
+        ans = a = 0
+        for b in cnt.values():
+            c = n -a -b
+            ans += a*b*c
+            a+=b
+        return ans
+```
 ## Stack
 
 ### 844. (easy) Backspace String Compare
@@ -1181,9 +1216,21 @@ class Solution:
         if root.right: root.right = self.sufficientSubset(root.right, limit)
         # if root has no children, return None
         return root if root.left or root.right else None
-
-## Hashmap
-
+```
+### 236. (medium) Lowest Common Ancestor of a Binary Tree
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+According to the [definition of LCA on Wikipedia](https://en.wikipedia.org/wiki/Lowest_common_ancestor): “The lowest common ancestor is defined between two nodes `p` and `q` as the lowest node in `T` that has both `p` and `q` as descendants (where we allow **a node to be a descendant of itself**).”
+```python
+#Recursion
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root or root == p or root == q: return root
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        if not left: return right
+        if not right: return left
+        return root
+```
 ### 1. (easy) Two Sum
 Given an array of integers `nums` and an integer `target`, return *indices of the two numbers such that they add up to `target`*.
 You may assume that each input would have **exactly one solution**, and you may not use the *same* element twice.
